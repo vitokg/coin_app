@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coin App</title>
+</head>
+<body>
+
+<form id="calc-coins-form" method="post">
+    <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />
+    <input type="submit" value="Calculate" />
+</form>
+<div id="result-container"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
