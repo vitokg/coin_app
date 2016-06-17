@@ -1,0 +1,23 @@
+{
+  "name": "coinapp",
+  "version": "1.0.0",
+  "description": "App counts the minimu number of coins to fit the inserted number",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitokg/coin_app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitokg/coin_app/issues"
+  },
+  "homepage": "https://github.com/vitokg/coin_app#readme",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4"
+  }
+}
