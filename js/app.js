@@ -3,8 +3,9 @@
  */
 
 var CoinApp = {
-    coinsData: [200, 100, 50, 20, 2, 1],
-    regExPattern: /^£?(([0-9]+(\.\d*)?))p?$/,
+    hostUrl: 'http://localhost:3000/calculate',
+    formMethod: 'POST',
+    resultContainer: document.getElementById('result-container'),
 
     init: function(){
         this.bindEvents();
@@ -19,65 +20,56 @@ var CoinApp = {
     calcCoinsSubmitHandler: function(e){
         e.preventDefault();
         var inputValue = e.target.amount.value;
-        var formatedNumber = this.formatInputData(inputValue);
-        var arr = this.countNumberOfEntries(formatedNumber, this.coinsData);
-        var result = this.mapEntriesToCoins(arr, this.coinsData);
-        this.displayResult(result);
+        var query = 'amount=' + inputValue;
+        var ajax = this.createAjaxObj();
+        this.sendAjaxRequest(ajax, query);
         e.target.amount.value = '';
     },
 
-    formatInputData: function(data) {
-        var formatedData = data.trim();
+    displayResult: function(dataArr){
 
-        if(/p$/.test(data)){
-            formatedData = formatedData.slice(0, -1);
-        }
-
-
-        if(/^£/.test(data) && !/\./.test(data) ||/^£/.test(data) && /\./.test(data)){
-            formatedData = formatedData.substring(1);
-            formatedData = parseFloat(formatedData) * 100;
-        }
-
-        if( /\./.test(data) && !/^£/.test(data)){
-            formatedData = parseFloat(formatedData) * 100;
-        }
-
-        return Math.round(formatedData);
+        var content = Object.assign([], dataArr).join();
+        this.resultContainer.innerHTML = 'Result: ' + content;
     },
 
-    mapEntriesToCoins: function(entryArray, coinsArray) {
-        var result = [];
-        var dataFormated;
-        entryArray.forEach(function(item, i){
-            if(item !== 0) {
-                dataFormated = coinsArray[i]>=100 ? '£' + coinsArray[i]/100 : coinsArray[i] + 'p';
-                result.push( ' ' + item + 'x ' + dataFormated);
+    displayError: function(errorString) {
+        this.resultContainer.innerHTML = errorString;
+    },
+
+    createAjaxObj: function() {
+        var xhttp = null;
+
+        if(window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else if(window.ActiveXObject) {
+            xhttp =  new XMLHttpRequest();
+        }
+
+        return xhttp;
+    },
+
+    sendAjaxRequest: function(ajaxObj, data){
+        var xhttp = ajaxObj;
+        var responce = null;
+
+        xhttp.onreadystatechange = function() {
+            if (xhttp.readyState == 4 && xhttp.status == 200) {
+                responce = JSON.parse(xhttp.responseText);
+
+                if(responce.result) {
+                    this.displayResult(responce.result);
+                }
+
+                if (responce.error) {
+                    this.displayError(responce.error);
+                }
+                
             }
-        });
+        }.bind(this);
 
-        return result;
-    },
-    
-    displayResult: function(result){
-
-        var content = Object.assign([], result).join();
-        var divElem = document.getElementById('result-container');
-        divElem.innerHTML = 'Result: ' + content;
-    },
-
-    countNumberOfEntries: function(num, coins){
-        var number;
-
-        return coins.map(function(coin){
-            if(num < coin){
-                return 0;
-            } else{
-                number = Math.floor(num/coin);
-                num %= coin;
-                return number;
-            };
-        });
+        xhttp.open(this.formMethod, this.hostUrl, true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send(data);
     }
 
 };

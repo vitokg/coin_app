@@ -6,8 +6,14 @@
 </head>
 <body>
 
-<form id="calc-coins-form" method="post">
-    <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />
+<h1>Minimum number of Sterling coins calculator</h1>
+
+<p>Please insert the desired amount in the form below and click "Calculate" button</p>
+
+<form id="calc-coins-form" method="post" action="http://localhost:3000/calculate">
+    <label for="input-amount">Amount</label>
+    <!--<input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />-->
+    <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true"  />
     <input type="submit" value="Calculate" />
 </form>
 <div id="result-container"></div>
