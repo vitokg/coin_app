@@ -7,7 +7,6 @@ module.exports.handleCalculationRequest = function (req, res) {
     console.log(inputData);
     var formatedInputData, coinsDenomination, entriesArray, result;
 
-    console.log(inputData);
     if (isDataValid(inputData)) {
 
         formatedInputData = formatInputData(inputData);

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Coin App</title>
+    <link href="public/css/styles.css" rel="stylesheet">
 </head>
 <body>
 
@@ -12,12 +13,14 @@
 
 <form id="calc-coins-form" method="post" action="http://localhost:3000/calculate">
     <label for="input-amount">Amount</label>
-    <!--<input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />-->
-    <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true"  />
+    <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />
     <input type="submit" value="Calculate" />
 </form>
-<div id="result-container"></div>
 
-<script src="js/app.js"></script>
+<div id="result-container">
+    <div id="result" class="content"></div>
+</div>
+
+<script src="public/js/app.js"></script>
 </body>
 </html>

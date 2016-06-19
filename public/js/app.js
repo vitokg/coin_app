@@ -5,16 +5,25 @@
 var CoinApp = {
     hostUrl: 'http://localhost:3000/calculate',
     formMethod: 'POST',
-    resultContainer: document.getElementById('result-container'),
+    ui: {
+        resultContainer: document.getElementById('result-container'),
+        contentBlock: document.getElementById('result'),
+        calcCoinsForm: document.getElementById('calc-coins-form')
+    },
+
 
     init: function(){
         this.bindEvents();
     },
 
     bindEvents: function() {
-        var calcCoinsForm = document.getElementById('calc-coins-form');
-        calcCoinsForm.addEventListener('submit', this.calcCoinsSubmitHandler.bind(this));
 
+        this.ui.calcCoinsForm.addEventListener('submit', this.calcCoinsSubmitHandler.bind(this));
+        this.ui.resultContainer.addEventListener('click', function(e) {
+            if(e.target === this) {
+                this.className = "";
+            }
+        })
     },
 
     calcCoinsSubmitHandler: function(e){
@@ -29,11 +38,12 @@ var CoinApp = {
     displayResult: function(dataArr){
 
         var content = Object.assign([], dataArr).join();
-        this.resultContainer.innerHTML = 'Result: ' + content;
+        this.ui.contentBlock.innerHTML = 'Result: ' + content;
+        this.ui.resultContainer.className = 'lightbox';
     },
 
     displayError: function(errorString) {
-        this.resultContainer.innerHTML = errorString;
+        this.ui.resultContainer.innerHTML = errorString;
     },
 
     createAjaxObj: function() {
