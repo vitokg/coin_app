@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cow tests</title>
+    <link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.5.3/mocha.css">
+</head>
+<body>
+<h1>Minimum number of Sterling coins calculator</h1>
+
+<form id="calc-coins-form" method="post" action="http://localhost:3000/calculate">
+    <label for="input-amount">Amount</label>
+    <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />
+    <input type="submit" value="Calculate" name="submit"/>
+</form>
+
+<div id="result-container">
+    <div id="result" class="content"></div>
+</div>
+
+
+    <div id="mocha"></div>
+    <div id="messages"></div>
+    <div id="fixtures"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mocha/2.5.3/mocha.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chai/3.5.0/chai.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sinon.js/1.15.4/sinon.min.js"></script>
+    <script src="public/js/app.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="test/client_side/coins_app_client_side-test.js"></script>
+    <script>mocha.run();</script>
+</body>
+</html>

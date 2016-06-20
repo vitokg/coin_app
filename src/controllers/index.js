@@ -2,9 +2,8 @@
  * Created by Viktoriia_Goncharuk on 6/16/2016.
  */
 
-module.exports.handleCalculationRequest = function (req, res) {
+function handleCalculationRequest(req, res) {
     var inputData = req.body.amount;
-    console.log(inputData);
     var formatedInputData, coinsDenomination, entriesArray, result;
 
     if (isDataValid(inputData)) {
@@ -19,7 +18,7 @@ module.exports.handleCalculationRequest = function (req, res) {
         res.send(JSON.stringify({error: 'data invalid'}));
     }
 
-};
+}
 
 function getCoinsDenomination() {
     return [200, 100, 50, 20, 2, 1];
@@ -75,3 +74,11 @@ function countNumberOfEntries(num, coins) {
         }
     });
 }
+
+module.exports = {
+    formatInputData: formatInputData,
+    handleCalculationRequest: handleCalculationRequest,
+    isDataValid: isDataValid,
+    countNumberOfEntries: countNumberOfEntries,
+    getCoinsDenomination: getCoinsDenomination
+};

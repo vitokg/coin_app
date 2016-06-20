@@ -14,7 +14,7 @@
 <form id="calc-coins-form" method="post" action="http://localhost:3000/calculate">
     <label for="input-amount">Amount</label>
     <input type="text" placeholder="Fill amount (Eg. 92p, £2.12)" id="input-amount" name="amount" required aria-required="true" pattern="^£?(([0-9]+(\.\d*)?))p?$" />
-    <input type="submit" value="Calculate" />
+    <input type="submit" value="Calculate" name="submit"/>
 </form>
 
 <div id="result-container">
