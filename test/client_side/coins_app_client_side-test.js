@@ -6,18 +6,6 @@
 var expect = chai.expect;
 
 describe("Coins App Client Side", function() {
-    describe("app initiation", function() {
-        it("init should call bindEvents()", function() {
-            var spy = sinon.spy(CoinApp, "bindEvents");
-            CoinApp.init();
-            expect(spy.called);
-        });
-
-        /*it("should set cow's name if provided", function() {
-            var cow = new Cow("Kate");
-            expect(cow.name).to.equal("Kate");
-        });*/
-    });
 
     describe('DOM tests for Calculator form', function() {
         var formElem = document.getElementById('calc-coins-form');

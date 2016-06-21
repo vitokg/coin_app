@@ -31,13 +31,18 @@ var CoinApp = {
         var inputValue = e.target.amount.value;
         var query = 'amount=' + inputValue;
         var ajax = this.createAjaxObj();
-        this.sendAjaxRequest(ajax, query);
+        this.sendAjaxRequest(ajax, query, this.displayResult.bind(this));
         e.target.amount.value = '';
     },
 
-    displayResult: function(dataArr){
+    displayResult: function(err, data){
 
-        var content = Object.assign([], dataArr).join();
+        if(err) {
+            this.displayError(err);
+            return;
+        }
+
+        var content = Object.assign([], data).join();
         this.ui.contentBlock.innerHTML = 'Result: ' + content;
         this.ui.resultContainer.className = 'lightbox';
     },
@@ -58,7 +63,7 @@ var CoinApp = {
         return xhttp;
     },
 
-    sendAjaxRequest: function(ajaxObj, data){
+    sendAjaxRequest: function(ajaxObj, data, callback){
         var xhttp = ajaxObj;
         var responce = null;
 
@@ -67,11 +72,11 @@ var CoinApp = {
                 responce = JSON.parse(xhttp.responseText);
 
                 if(responce.result) {
-                    this.displayResult(responce.result);
+                    callback(null, responce.result);
                 }
 
                 if (responce.error) {
-                    this.displayError(responce.error);
+                    callback(responce.error);
                 }
                 
             }
